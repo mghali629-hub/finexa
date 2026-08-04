@@ -1,0 +1,69 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Transaction {
+  id        String   @id @default(uuid())
+  txCode    String
+  name      String
+  category  String
+  amount    String
+  status    String   @default("Completed")
+  positive  Boolean
+  createdAt DateTime @default(now())
+}
+
+model Account {
+  id        Int      @id @default(autoincrement())
+  name      String
+  type      String
+  balance   Float
+  currency  String   @default("USD")
+  iban      String
+}
+
+model WalletCard {
+  id        Int      @id @default(autoincrement())
+  last4     String
+  type      String
+  expiry    String
+  balance   Float
+}
+
+model Investment {
+  id          Int      @id @default(autoincrement())
+  symbol      String
+  name        String
+  type        String
+  shares      Float
+  avgBuy      Float
+  currentPrice Float
+}
+
+model BudgetCategory {
+  id        Int      @id @default(autoincrement())
+  name      String
+  limit     Float
+  spent     Float
+}
+
+model FinancialGoal {
+  id           Int      @id @default(autoincrement())
+  name         String
+  targetAmount Float
+  currentAmount Float
+  deadline     String
+}
+
+model Loan {
+  id             Int      @id @default(autoincrement())
+  name           String
+  amount         Float
+  interestRate   Float
+  monthlyPayment Float
+}
